@@ -2,10 +2,14 @@ package io.code.challenge.api;
 
 
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.Charset;
@@ -24,6 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import io.code.challenge.dao.MobileSubscriberRepository;
+import io.code.challenge.entities.MobileSubscriber;
 import io.code.challenge.exceptions.MobileSubscriberAlreadyExistsException;
 import io.code.challenge.exceptions.MobileSubscriberNotFoundException;
 import io.code.challenge.service.IMobileSubscriberService;
@@ -34,7 +39,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(IdApiController.class)
-public class IdApiControllerIntegrationTest {
+public class IntegrationTestingWebLayer {
 
     @Autowired
     private MockMvc mockMvc;
@@ -60,14 +65,25 @@ public class IdApiControllerIntegrationTest {
     @Test
     public void CannotDeleteMobileNonExistentSubscriber() throws Exception {    	
 
-    	doThrow(new MobileSubscriberNotFoundException()).when(mobileSubscriberService).deleteMobileSubscriber(anyLong());
+    	  doThrow(new MobileSubscriberNotFoundException()).when(mobileSubscriberService).deleteMobileSubscriber(anyLong());
     	  this.mockMvc.perform(MockMvcRequestBuilders
     				.delete("/mobilesubscriber/{id}", anyLong()))
     				.andDo(print())
     				.andExpect(status().is(HttpStatus.NOT_FOUND.value()))
     				.andExpect(status().is4xxClientError())
                     .andExpect(content().string(containsString("Mobile subscriber was not found.")));
-    }  
+    } 
+    
+    @Test
+    public void DeletingExistentSubscriberReturnsSuccessful() throws Exception {    	
+
+    	  doNothing().when(mobileSubscriberService).deleteMobileSubscriber(anyLong());
+    	  this.mockMvc.perform(MockMvcRequestBuilders
+    				.delete("/mobilesubscriber/{id}", anyLong()))
+    				.andDo(print())
+    				.andExpect(status().is(HttpStatus.NO_CONTENT.value()))
+    				.andExpect(status().is2xxSuccessful());
+    }
     
     @Test
     public void AddingSameMobileNumberTwiceReturns404Error() throws Exception {    	
@@ -114,6 +130,32 @@ public class IdApiControllerIntegrationTest {
     				.andExpect(status().is4xxClientError())
                     .andExpect(content().string(containsString("Mobile subscriber was not found."))); 
     } 
+    
+    @Test
+    public void FetchingExistentSubscriberReturnsSuccessful() throws Exception {    	
+
+    	MobileSubscriber mobileSubscriber = new MobileSubscriber(
+    			12341234L,
+    			"35699888999",
+    			12345555L,
+    			12344444L,
+    			"MOBILE_PREPAID",
+    			1234L);
+    	
+    	
+    	  doReturn(mobileSubscriber).when(mobileSubscriberService).getMobileSubscriber(anyLong());
+    	  this.mockMvc.perform(MockMvcRequestBuilders
+    			  	.get("/mobilesubscriber/{id}", anyLong()))
+					.andDo(print())
+    				.andExpect(status().is(HttpStatus.OK.value()))
+    				.andExpect(status().is2xxSuccessful())
+    				.andExpect(jsonPath("$.id", is(12341234)))
+    				.andExpect(jsonPath("$.msisdn", is("35699888999")))
+    				.andExpect(jsonPath("$.customer_id_owner", is(12345555)))
+    				.andExpect(jsonPath("$.customer_id_user", is(12344444)))
+    	  			.andExpect(jsonPath("$.service_type", is("MOBILE_PREPAID")))
+    	  			.andExpect(jsonPath("$.service_start_date", is(1234)));
+    }
     
     
     @Test

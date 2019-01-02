@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.*;
 
 @RunWith(SpringRunner.class)
-public class AddMobileSubscriberTest2 {
+public class AddMobileSubscriberUnitTesting {
 	
 	
     @TestConfiguration
