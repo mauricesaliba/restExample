@@ -10,7 +10,7 @@ import org.threeten.bp.ZonedDateTime;
 
 @Configuration
 public class JacksonConfiguration {
-
+	
   @Bean
   @ConditionalOnMissingBean(ThreeTenModule.class)
   ThreeTenModule threeTenModule() {

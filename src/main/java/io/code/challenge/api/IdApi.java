@@ -5,6 +5,7 @@
  */
 package io.code.challenge.api;
 
+import io.code.challenge.exceptions.ApiException;
 import io.code.challenge.model.MobileSubscriberDto;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public interface IdApi {
         @ApiResponse(code = 500, message = "Server error.") })
     @RequestMapping(value = "/{id}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteMobileNumber(@ApiParam(value = "Mobile Subscriber ID to delete.",required=true) @PathVariable("id") Long id);
+    ResponseEntity<Void> deleteMobileNumber(@ApiParam(value = "Mobile Subscriber ID to delete.",required=true) @PathVariable("id") Long id) throws ApiException;
 
 
     @ApiOperation(value = "Get a specific mobile number", nickname = "getMobileNumberById", notes = "Get a specific mobile number", response = MobileSubscriberDto.class, tags={  })
@@ -37,7 +38,7 @@ public interface IdApi {
     @RequestMapping(value = "/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<MobileSubscriberDto> getMobileNumberById(@ApiParam(value = "Mobile Subscriber ID",required=true) @PathVariable("id") Long id);
+    ResponseEntity<MobileSubscriberDto> getMobileNumberById(@ApiParam(value = "Mobile Subscriber ID",required=true) @PathVariable("id") Long id) throws ApiException;
 
 
     @ApiOperation(value = "Update mobile number", nickname = "updateMobileNumber", notes = "Update a mobile number by ID. Only field that can be updated is 'service_type'. Essentially - Change a mobile number from prepaid to postpaid or vice versa.", response = MobileSubscriberDto.class, tags={  })
@@ -50,6 +51,6 @@ public interface IdApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PUT)
-    ResponseEntity<MobileSubscriberDto> updateMobileNumber(@ApiParam(value = "Mobile Subscriber ID to update.",required=true) @PathVariable("id") Long id,@ApiParam(value = ""  )  @Valid @RequestBody MobileSubscriberDto body);
+    ResponseEntity<MobileSubscriberDto> updateMobileNumber(@ApiParam(value = "Mobile Subscriber ID to update.",required=true) @PathVariable("id") Long id,@ApiParam(value = ""  )  @Valid @RequestBody MobileSubscriberDto body) throws ApiException;
 
 }

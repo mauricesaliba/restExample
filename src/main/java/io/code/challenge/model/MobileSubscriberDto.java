@@ -5,10 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import io.code.challenge.service.IMobileSubscriberService;
 import io.swagger.annotations.ApiModelProperty;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.*;
 
@@ -24,6 +22,8 @@ public class MobileSubscriberDto   {
   @JsonProperty("id")
   private Long id = null;
 
+  
+  @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$",message="Bad request / failed validation. not compliant with E164 format.")
   @JsonProperty("msisdn")
   private String msisdn = null;
 
@@ -64,17 +64,12 @@ public class MobileSubscriberDto   {
     }
   }
 
+  @NotNull(message="Bad request / failed validation.")
   @JsonProperty("service_type")
   private ServiceTypeEnum serviceType = null;
 
   @JsonProperty("service_start_date")
   private Long serviceStartDate = null;
-  
-  
-
-  
-  @Autowired
-  private IMobileSubscriberService mobileSubscriberService;
   
   
 
@@ -89,8 +84,6 @@ public class MobileSubscriberDto   {
   **/
   @ApiModelProperty(required = true, value = "Unique ID for this Mobile Number.")
   @NotNull
-
-
   public Long getId() {
     return id;
   }
@@ -110,8 +103,6 @@ public class MobileSubscriberDto   {
   **/
   @ApiModelProperty(example = "35699123456", required = true, value = "The mobile number in E164 format.")
   @NotNull
-
-
   public String getMsisdn() {
     return msisdn;
   }
@@ -169,8 +160,6 @@ public class MobileSubscriberDto   {
   **/
   @ApiModelProperty(required = true, value = "An enum defining the type of service.")
   @NotNull
-
-
   public ServiceTypeEnum getServiceType() {
     return serviceType;
   }

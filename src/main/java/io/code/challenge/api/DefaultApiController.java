@@ -3,7 +3,7 @@ package io.code.challenge.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.code.challenge.entities.MobileSubscriber;
-import io.code.challenge.exceptions.AlreadyExistsException;
+import io.code.challenge.exceptions.ApiException;
 import io.code.challenge.model.DtoConverter;
 import io.code.challenge.model.MobileSubscriberDto;
 import io.code.challenge.service.IMobileSubscriberService;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.validation.Valid;
-import javax.servlet.http.HttpServletRequest;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class DefaultApiController implements DefaultApi {
 
     private final ObjectMapper objectMapper;
 
-    private final HttpServletRequest request;
+   // private final HttpServletRequest request;
     
     @Autowired
     private IMobileSubscriberService mobileSubscriberService;
@@ -40,13 +39,14 @@ public class DefaultApiController implements DefaultApi {
     @Autowired
     private DtoConverter dtoConverter;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public DefaultApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    @Autowired
+    public DefaultApiController(ObjectMapper objectMapper) {//, HttpServletRequest request) {
         this.objectMapper = objectMapper;
-        this.request = request;
+        //this.request = request;
     }
 
-    public ResponseEntity<MobileSubscriberDto> addMobileNumber(@ApiParam(value = ""  )  @Valid @RequestBody MobileSubscriberDto body) {
+
+    public ResponseEntity<MobileSubscriberDto> addMobileNumber(@ApiParam(value = ""  )  @Valid @RequestBody MobileSubscriberDto body) throws ApiException {
         
         MobileSubscriber mobileSubscriber  = null;
         HttpStatus httpStatus =  HttpStatus.CREATED;
@@ -56,13 +56,8 @@ public class DefaultApiController implements DefaultApi {
 			mobileSubscriberService.saveMobileSubscriber(mobileSubscriber);
 			log.info("Sucessfully created: " + mobileSubscriber);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (AlreadyExistsException aee) {
-			int httpStatusCode = aee.getCode();
-			httpStatus = HttpStatus.valueOf(httpStatusCode);
-			log.error("mobile subscriber already created exception on mobile subscriber with id: " + mobileSubscriber.getId());
-		}
+			throw new ApiException("Server could not understand request");
+		} 
         
         MobileSubscriberDto mobileSubscriberDto = dtoConverter.convertToDto(mobileSubscriber);       
         return new ResponseEntity<MobileSubscriberDto>(mobileSubscriberDto,httpStatus);

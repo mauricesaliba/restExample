@@ -10,8 +10,6 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-@javax.annotation.Generated(value = "io.code.challenge.codegen.v3.generators.java.SpringCodegen", date = "2018-12-10T16:10:08.644Z[GMT]")
-
 @Configuration
 public class SwaggerDocumentationConfig {
 

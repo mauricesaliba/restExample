@@ -1,5 +1,6 @@
 package io.code.challenge.api;
 
+import io.code.challenge.exceptions.ApiException;
 import io.code.challenge.model.MobileSubscriberDto;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public interface DefaultApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<MobileSubscriberDto> addMobileNumber(@ApiParam(value = ""  )  @Valid @RequestBody MobileSubscriberDto body);
+    ResponseEntity<MobileSubscriberDto> addMobileNumber(@ApiParam(value = ""  )  @Valid @RequestBody MobileSubscriberDto body) throws ApiException;
 
 
     @ApiOperation(value = "Get all Mobile Numbers", nickname = "getMobileNumbers", notes = "Get all Mobile Numbers based on a filter. For the purpose of this, excercise the implementation should only cater for the scenario that no parameters are sent within the request.", response = MobileSubscriberDto.class, responseContainer = "List", tags={  })
