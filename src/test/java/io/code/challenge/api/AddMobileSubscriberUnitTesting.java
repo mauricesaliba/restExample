@@ -41,9 +41,6 @@ public class AddMobileSubscriberTest2 {
     @Autowired
     @Qualifier("mobileSubscriberServiceTest")
     private MobileSubscriberServiceImpl mobileSubscriberService;
-
-
-    
     
     
     @Test

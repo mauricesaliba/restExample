@@ -34,7 +34,7 @@ public class Application {
 
     @Test
     public void queryNonExistentMobileSubscriberReturnsError() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/mobilesubscriber/456",
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/mobilesubscriber/456",
                 String.class)).contains("Mobile subscriber was not found");       
     }
 }

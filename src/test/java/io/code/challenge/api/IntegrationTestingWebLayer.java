@@ -62,7 +62,7 @@ public class IdApiControllerIntegrationTest {
 
     	doThrow(new MobileSubscriberNotFoundException()).when(mobileSubscriberService).deleteMobileSubscriber(anyLong());
     	  this.mockMvc.perform(MockMvcRequestBuilders
-    				.delete("/{id}", anyLong()))
+    				.delete("/mobilesubscriber/{id}", anyLong()))
     				.andDo(print())
     				.andExpect(status().is(HttpStatus.NOT_FOUND.value()))
     				.andExpect(status().is4xxClientError())
@@ -74,7 +74,7 @@ public class IdApiControllerIntegrationTest {
     	
     	doThrow(new MobileSubscriberAlreadyExistsException()).when(mobileSubscriberService).saveMobileSubscriber(any());
     	 this.mockMvc.perform(MockMvcRequestBuilders
-    				.post("/")
+    				.post("/mobilesubscriber/")
     				.content(MOBILE_SUBSCRIBER_REQUEST)
 					.contentType(APPLICATION_JSON_UTF8))
     				.andDo(print())
@@ -86,7 +86,7 @@ public class IdApiControllerIntegrationTest {
     public void AddMobileNumberWithNoExceptions() throws Exception {    
     	
     	 this.mockMvc.perform(MockMvcRequestBuilders
-    				.post("/")
+    				.post("/mobilesubscriber/")
     				.content(MOBILE_SUBSCRIBER_REQUEST)
 					.contentType(APPLICATION_JSON_UTF8))
     				.andDo(print())
@@ -97,7 +97,7 @@ public class IdApiControllerIntegrationTest {
     public void FetchingAllMobileNumbersIfNoneExistReturnEmptyArray() throws Exception {    	
     	
     	 this.mockMvc.perform(MockMvcRequestBuilders
- 				    .get("/"))
+ 				    .get("/mobilesubscriber/"))
     				.andDo(print())
     				.andExpect(status().is(HttpStatus.OK.value()))
     				.andExpect(content().string("[]")); 
@@ -108,7 +108,7 @@ public class IdApiControllerIntegrationTest {
     	 
     	 doThrow(new MobileSubscriberNotFoundException()).when(mobileSubscriberService).getMobileSubscriber(anyLong());
     	 this.mockMvc.perform(MockMvcRequestBuilders
-			        .get("/{id}", anyLong()))
+			        .get("/mobilesubscriber/{id}", anyLong()))
     				.andDo(print())
     				.andExpect(status().is(HttpStatus.NOT_FOUND.value()))
     				.andExpect(status().is4xxClientError())
@@ -121,7 +121,7 @@ public class IdApiControllerIntegrationTest {
     	 
     	 doThrow(new MobileSubscriberNotFoundException()).when(mobileSubscriberService).updateMobileSubscriber(anyLong(),any());
     	 this.mockMvc.perform(MockMvcRequestBuilders
-			        .put("/{id}", 1234L)
+			        .put("/mobilesubscriber/{id}", 1234L)
 					.content(MOBILE_SUBSCRIBER_REQUEST)
 					.contentType(APPLICATION_JSON_UTF8))
 			        .andDo(print())

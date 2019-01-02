@@ -21,7 +21,7 @@ public interface DefaultApi {
         @ApiResponse(code = 400, message = "Bad request / failed validation."),
         @ApiResponse(code = 409, message = "Already exists."),
         @ApiResponse(code = 500, message = "Server error.") })
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "/mobilesubscriber",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
@@ -33,7 +33,7 @@ public interface DefaultApi {
         @ApiResponse(code = 200, message = "Successful Operation.", response = MobileSubscriberDto.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Invalid search criteria value."),
         @ApiResponse(code = 500, message = "Server error.") })
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "/mobilesubscriber",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<MobileSubscriberDto>> getMobileNumbers(@ApiParam(value = "The mobile number in E164 format.") @Valid @RequestParam(value = "msisdn", required = false) String msisdn,@ApiParam(value = "The ID referencing the owner of the mobile numbers to be searched.") @Valid @RequestParam(value = "customer_id_owner", required = false) Long customerIdOwner,@ApiParam(value = "The ID referencing the user of the mobile numbers to be searched.") @Valid @RequestParam(value = "customer_id_user", required = false) Long customerIdUser,@ApiParam(value = "Type of mobile numbers to be searched.", allowableValues = "MOBILE_PREPAID, MOBILE_POSTPAID") @Valid @RequestParam(value = "service_type", required = false) String serviceType);

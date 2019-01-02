@@ -25,7 +25,7 @@ public interface IdApi {
         @ApiResponse(code = 204, message = "Successful Operation."),
         @ApiResponse(code = 404, message = "Mobile number to delete does not exist."),
         @ApiResponse(code = 500, message = "Server error.") })
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/mobilesubscriber/{id}",
         method = RequestMethod.DELETE)
     ResponseEntity<Void> deleteMobileNumber(@ApiParam(value = "Mobile Subscriber ID to delete.",required=true) @PathVariable("id") Long id) throws ApiException;
 
@@ -35,7 +35,7 @@ public interface IdApi {
         @ApiResponse(code = 200, message = "Successful Operation.", response = MobileSubscriberDto.class),
         @ApiResponse(code = 404, message = "Not found."),
         @ApiResponse(code = 500, message = "Server error.") })
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/mobilesubscriber/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<MobileSubscriberDto> getMobileNumberById(@ApiParam(value = "Mobile Subscriber ID",required=true) @PathVariable("id") Long id) throws ApiException;
@@ -47,7 +47,7 @@ public interface IdApi {
         @ApiResponse(code = 400, message = "Bad request / failed validation."),
         @ApiResponse(code = 404, message = "Mobile number to update does not exist."),
         @ApiResponse(code = 500, message = "Server error.") })
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/mobilesubscriber/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PUT)
