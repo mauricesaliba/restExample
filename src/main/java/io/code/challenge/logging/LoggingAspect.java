@@ -1,6 +1,7 @@
 package io.code.challenge.logging;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +17,14 @@ public class LoggingAspect {
 
 	@Before("execution(* io.code.challenge.service.*.*(..))")
 	public void before(JoinPoint joinPoint){
-		//Advice
-		logger.info(" Check for user access ");
-		logger.info(" Allowed execution for {}", joinPoint);
+
+		logger.info(" Executing: {}", joinPoint);
+	}
+	
+	
+	@AfterReturning(value = "execution(* io.code.challenge.service.*.*(..))", 
+			returning = "result")
+	public void afterReturning(JoinPoint joinPoint, Object result) {
+		logger.info("{} returned with value {}", joinPoint, result);
 	}
 }
