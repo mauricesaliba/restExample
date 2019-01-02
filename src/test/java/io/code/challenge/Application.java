@@ -20,24 +20,21 @@ public class Application {
     @Autowired
     private DefaultApiController controller;
 
-    @Test
-    public void contexLoads() throws Exception {
-        assertThat(controller).isNotNull();
-    }
-    
-    
-    
     @LocalServerPort
     private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
+    
+    
+    @Test
+    public void contexLoads() throws Exception {
+        assertThat(controller).isNotNull();
+    }
 
     @Test
     public void queryNonExistentMobileSubscriberReturnsError() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/456",
-                String.class)).contains("Mobile subscriber was not found");
-        
-        
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/mobilesubscriber/456",
+                String.class)).contains("Mobile subscriber was not found");       
     }
 }

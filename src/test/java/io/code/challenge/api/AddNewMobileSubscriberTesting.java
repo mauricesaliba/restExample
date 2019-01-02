@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 @RunWith(SpringRunner.class)
-public class AddMobileSubscriberTest {
+public class AddNewMobileSubscriberTesting {
 	
 	
 	@Mock
@@ -29,7 +29,7 @@ public class AddMobileSubscriberTest {
     private MobileSubscriberServiceImpl mobileSubscriberService;
 
     @Test(expected=MobileSubscriberAlreadyExistsException.class)
-    public void addMobileSubscriberWithTakenId() throws Exception {    	
+    public void AddingMobileSubscriberWithTakenIdThrowsException() throws Exception {    	
     	
     	MobileSubscriber mobileSubscriber = new MobileSubscriber(
     			12341234L,
@@ -43,34 +43,4 @@ public class AddMobileSubscriberTest {
     	when(mobileSubscriberRepository.existsById(anyLong())).thenReturn(true);    	
     	mobileSubscriberService.saveMobileSubscriber(mobileSubscriber);
     }
-    
-    
-    
-   /* @Test
-    public void addMobileSubscriberCheckIfSaved() throws Exception {    	
-    	
-    	MobileSubscriber mobileSubscriber = new MobileSubscriber(
-    			12341234L,
-    			"35699888999",
-    			12341234L,
-    			12341234L,
-    			"MOBILE_PREPAID",
-    			1234L);
-    	
-    	mobileSubscriberRepository.deleteAll();    	
-    	mobileSubscriberService.saveMobileSubscriber(mobileSubscriber);
-    	List<MobileSubscriber> mlist = mobileSubscriberService.retrieveMobileSubscribers();
-    	System.out.println(mlist);
-    	assertEquals(1, 2);
-    }
-    
-    */
-    
-   
-    
-    
-
-    
-    
-    
 }

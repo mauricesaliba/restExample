@@ -49,7 +49,7 @@ public class IdApiController implements IdApi {
 		mobileSubscriberService.deleteMobileSubscriber(id);
 		log.info("Sucessfully deleted mobile number with id: " + id);
 
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
     public ResponseEntity<MobileSubscriberDto> getMobileNumberById(@ApiParam(value = "Mobile Subscriber ID",required=true) @PathVariable("id") Long id) throws MobileSubscriberNotFoundException {
