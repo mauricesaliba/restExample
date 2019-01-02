@@ -14,7 +14,8 @@ Used Spring aop for logging
 
 Used mockito and hamcrest for unit and integration testing
 
-To be considered of production level application should have security added. Oauth2 would bne ideal.
+In order to be considered of production level application it should have security added. Oauth2 would be ideal. 
+Also api should be fronted with a load balancer gateway for resiliency with at least two nodes running. 
 
 
 
