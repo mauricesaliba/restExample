@@ -14,3 +14,7 @@ Used Spring aop for logging
 
 Used mockito and hamcrest for unit and integration testing
 
+To be considered of production level application should have security added. Oauth2 would bne ideal.
+
+
+
