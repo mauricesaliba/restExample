@@ -21,6 +21,7 @@ Also api should be fronted with a load balancer gateway for resiliency with at l
 Exposed application healthchecks and metrics that can be accessed from http://localhost:8080/api/actuator and http://localhost:8080/api/actuator/metrics
 
 		e.g. for cpu used metrics: http://localhost:8080/api/actuator/metrics/system.cpu.usage
+		Can also change log levels from the logger endpoint by providing a payload that specifies the log level
 
 
 
