@@ -30,12 +30,14 @@
 					<execution>
 						<goals>
 							<goal>repackage</goal>
+							<goal>build-info</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -23,5 +23,7 @@ Exposed application healthchecks and metrics that can be accessed from http://lo
 		e.g. for cpu used metrics: http://localhost:8080/api/actuator/metrics/system.cpu.usage
 		Can also change log levels from the logger endpoint by providing a payload that specifies the log level
 
+Build information (useful for release management through dashboarding) can be accessed through the link: http://localhost:8080/api/actuator/info
+
 
 
