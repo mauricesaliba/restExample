@@ -25,5 +25,7 @@ Exposed application healthchecks and metrics that can be accessed from http://lo
 
 Build information (useful for release management through dashboarding) can be accessed through the link: http://localhost:8080/api/actuator/info
 
+The application can be built into a fully executable jar: can be run as ./mobile-subscriber-service-1.0.0.jar
+
 
 
