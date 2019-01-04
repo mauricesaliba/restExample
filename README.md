@@ -18,4 +18,9 @@ In order to be considered of production level application it should have securit
 Also api should be fronted with a load balancer gateway for resiliency with at least two nodes running. 
 
 
+Exposed application healthchecks and metrics that can be accessed from http://localhost:8080/api/actuator and http://localhost:8080/api/actuator/metrics
+
+		e.g. for cpu used metrics: http://localhost:8080/api/actuator/metrics/system.cpu.usage
+
+
 
